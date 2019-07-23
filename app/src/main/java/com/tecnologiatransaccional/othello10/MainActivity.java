@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tecnologiatransaccional.othello10.Tablero.Tablero;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
     private int[][] idviews = {
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton current;
     private TextView whiteCount;
     private TextView blackCount;
+
+    //Incializadion del trablero
+    private Tablero tablero = new Tablero();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
