@@ -2,9 +2,12 @@ package com.tecnologiatransaccional.othello10;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        GridLayout mGridLayout = findViewById(R.id.grid);
+        int il = mGridLayout.getChildCount();
+
+
+        Toast.makeText(this, String.valueOf(il), Toast.LENGTH_SHORT).show();
+
         whiteCount = findViewById(R.id.whiteNum);
         blackCount = findViewById(R.id.blackNum);
 
@@ -52,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 imageButtons[i][j].setOnClickListener(this);
             }
         }
+
+       /* for (int i = 0; i < il; i++) {
+            RelativeLayout container = (RelativeLayout) mGridLayout.getChildAt(i);
+            container.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Toast.makeText(MainActivity.this, "Hola que hace?", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }*/
     }
 
     @Override
