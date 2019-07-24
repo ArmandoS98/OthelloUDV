@@ -158,4 +158,34 @@ public class Tablero {
 
         return esPosible;
     }
+
+    public int verificarDisponibles() {
+        int vacios = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (fichas[i][j] == Fichas.NINGUNA)
+                    vacios++;
+            }
+        }
+        return vacios;
+    }
+
+    public Fichas[][] getFichas() {
+        return fichas;
+    }
+
+    public Jugador getJugadorActual() {
+        return jugadorActual;
+    }
+
+    public int contador(Fichas ficha) {
+        int cantidad = 0;
+        for (int fila = 0; fila < 8; fila++) {
+            for (int columna = 0; columna < 8; columna++) {
+                if (fichas[fila][columna] == ficha)
+                    cantidad++;
+            }
+        }
+        return cantidad;
+    }
 }

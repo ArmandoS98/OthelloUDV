@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tecnologiatransaccional.othello10.Fichas.Fichas;
 import com.tecnologiatransaccional.othello10.Tablero.Tablero;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int il = mGridLayout.getChildCount();
 
 
-        Toast.makeText(this, String.valueOf(il), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, String.valueOf(il), Toast.LENGTH_SHORT).show();
 
         whiteCount = findViewById(R.id.whiteNum);
         blackCount = findViewById(R.id.blackNum);
@@ -347,6 +348,85 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void chessAction(int fila, int columna) {
-        tablero.verificarMovimientos(fila, columna);
+        if (tablero.verificarDisponibles() != 0 && hayMovimientos()) {
+            if (tablero.verificarMovimientos(fila, columna)) {
+                tablero.volearFicha(fila, columna);
+                tablero.posicionFicha(fila, columna);
+                dibujarTablero();
+
+                whiteCount.setText("BLANCO : " + tablero.contador(Fichas.BLANCA));
+                blackCount.setText("NEGRO  : " + tablero.contador(Fichas.NEGRA));
+
+                if (tablero.verificarDisponibles() != 0) {
+                    tablero.siguienteTurno();
+                    cambiar(current);
+
+                    if (!hayMovimientos())
+                        mostrarGanador();
+                }
+
+                /*
+                if (hint_button == 1)
+                    verPosiblesMovimientos();
+                else
+                    */
+            }
+        } else {
+            Toast.makeText(MainActivity.this, "Nuevo Juego", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void mostrarGanador() {
+        if (tablero.contador(Fichas.NEGRA) > tablero.contador(Fichas.BLANCA)) {
+            Toast.makeText(this, "FICHAS NEGRAS GANA", Toast.LENGTH_LONG).show();
+        } else if (tablero.contador(Fichas.NEGRA) < tablero.contador(Fichas.BLANCA)) {
+            Toast.makeText(this, "FICHAS BLANCAS GANA", Toast.LENGTH_LONG).show();
+        } else if (tablero.contador(Fichas.NEGRA) == tablero.contador(Fichas.BLANCA)) {
+            Toast.makeText(this, "EMPATE", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void cambiar(ImageButton current) {
+        if (tablero.getJugadorActual().getFichas() == Fichas.NEGRA)
+            current.setImageResource(R.drawable.black_chess);
+        else if (tablero.getJugadorActual().getFichas() == Fichas.BLANCA)
+            current.setImageResource(R.drawable.white_chess);
+        else
+            current.setImageResource(R.drawable.transparent);
+    }
+
+    private void dibujarTablero() {
+        for (int fila = 0; fila < 8; fila++) {
+            for (int columna = 0; columna < 8; columna++) {
+                if (tablero.getFichas()[fila][columna] == Fichas.NEGRA)
+                    imageButtons[fila][columna].setImageResource(R.drawable.black_chess);
+                else if (tablero.getFichas()[fila][columna] == Fichas.BLANCA)
+                    imageButtons[fila][columna].setImageResource(R.drawable.white_chess);
+                else if (tablero.getFichas()[fila][columna] == Fichas.NINGUNA)
+                    imageButtons[fila][columna].setImageResource(R.drawable.transparent);
+            }
+        }
+    }
+
+    private boolean hayMovimientos() {
+        for (int fila = 0; fila < 8; fila++) {
+            for (int columna = 0; columna < 8; columna++) {
+                if (tablero.verificarMovimientos(fila, columna))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private void verPosiblesMovimientos() {
+        for (int fila = 0; fila < 8; fila++) {
+            for (int columna = 0; columna < 8; columna++) {
+                if (tablero.getFichas()[fila][columna] == Fichas.NINGUNA && tablero.verificarMovimientos(fila, columna))
+                    if (tablero.getJugadorActual().getFichas() == Fichas.NEGRA)
+                        imageButtons[fila][columna].setImageResource(R.drawable.black_chess_t);
+                    else if (tablero.getJugadorActual().getFichas() == Fichas.BLANCA)
+                        imageButtons[fila][columna].setImageResource(R.drawable.white_chess_t);
+            }
+        }
     }
 }
