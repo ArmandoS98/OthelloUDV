@@ -16,7 +16,7 @@ public class Tablero {
         iniciar();
     }
 
-    private void iniciar() {
+    public void iniciar() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 fichas[i][j] = Fichas.NINGUNA;

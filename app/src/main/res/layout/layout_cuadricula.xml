@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/grid"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/grid"
     android:columnCount="8"
     android:rowCount="8">
 
@@ -11,6 +11,7 @@
         android:layout_width="@dimen/anchura"
         android:layout_height="@dimen/altura"
         android:background="@color/colorTableroDark"
+        android:scaleType="fitXY"
         android:src="@drawable/transparent" />
 
     <ImageButton
@@ -112,6 +113,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="3dp"
         android:background="@color/colorTableroDark"
+        android:scaleType="fitXY"
         android:src="@drawable/transparent" />
 
     <ImageButton
@@ -121,6 +123,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="3dp"
         android:background="@color/colorTableroLigth"
+        android:scaleType="fitXY"
         android:src="@drawable/transparent" />
 
     <ImageButton
@@ -130,6 +133,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="3dp"
         android:background="@color/colorTableroDark"
+        android:scaleType="fitXY"
         android:src="@drawable/transparent" />
 
     <ImageButton
@@ -268,7 +272,7 @@
         android:layout_marginTop="3dp"
         android:background="@color/colorTableroDark"
         android:scaleType="fitXY"
-        android:src="@drawable/white_chess" />
+        android:src="@drawable/ficha_blanca" />
 
     <ImageButton
         android:id="@+id/board45"
@@ -278,7 +282,7 @@
         android:layout_marginTop="3dp"
         android:background="@color/colorTableroLigth"
         android:scaleType="fitXY"
-        android:src="@drawable/black_chess" />
+        android:src="@drawable/ficha_negra" />
 
     <ImageButton
         android:id="@+id/board46"
@@ -347,7 +351,7 @@
         android:layout_marginTop="3dp"
         android:background="@color/colorTableroLigth"
         android:scaleType="fitXY"
-        android:src="@drawable/black_chess" />
+        android:src="@drawable/ficha_negra" />
 
     <ImageButton
         android:id="@+id/board55"
@@ -357,7 +361,7 @@
         android:layout_marginTop="3dp"
         android:background="@color/colorTableroDark"
         android:scaleType="fitXY"
-        android:src="@drawable/white_chess" />
+        android:src="@drawable/ficha_blanca" />
 
     <ImageButton
         android:id="@+id/board56"

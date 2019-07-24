@@ -3,6 +3,8 @@ package com.tecnologiatransaccional.othello10;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -28,8 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageButton[][] imageButtons = new ImageButton[8][8];
 
-    private Button newGame;
-    private Button hint;
     private int hint_button = 0; // Default turn-off
 
     private ImageButton current;
@@ -44,20 +44,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GridLayout mGridLayout = findViewById(R.id.grid);
-        int il = mGridLayout.getChildCount();
-
-
-//        Toast.makeText(this, String.valueOf(il), Toast.LENGTH_SHORT).show();
-
         whiteCount = findViewById(R.id.whiteNum);
         blackCount = findViewById(R.id.blackNum);
 
-        newGame = findViewById(R.id.newGame);
+      /*  Button newGame = findViewById(R.id.newGame);
         newGame.setOnClickListener(this);
 
-        hint = findViewById(R.id.hint);
-        hint.setOnClickListener(this);
+        Button hint = findViewById(R.id.hint);
+        hint.setOnClickListener(this);*/
 
         current = findViewById(R.id.current);
 
@@ -68,27 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-       /* for (int i = 0; i < il; i++) {
-            RelativeLayout container = (RelativeLayout) mGridLayout.getChildAt(i);
-            container.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    Toast.makeText(MainActivity.this, "Hola que hace?", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }*/
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.newGame:
-
-                break;
-
-            case R.id.hint:
-
-                break;
-
             case R.id.board11:
                 chessAction(0, 0);
                 break;
@@ -365,11 +343,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mostrarGanador();
                 }
 
-                /*
-                if (hint_button == 1)
-                    verPosiblesMovimientos();
-                else
-                    */
+                if (tablero.verificarDisponibles() == 0)
+                    mostrarGanador();
+
+
             }
         } else {
             Toast.makeText(MainActivity.this, "Nuevo Juego", Toast.LENGTH_SHORT).show();
@@ -388,9 +365,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void cambiar(ImageButton current) {
         if (tablero.getJugadorActual().getFichas() == Fichas.NEGRA)
-            current.setImageResource(R.drawable.black_chess);
+            current.setImageResource(R.drawable.ficha_negra);
         else if (tablero.getJugadorActual().getFichas() == Fichas.BLANCA)
-            current.setImageResource(R.drawable.white_chess);
+            current.setImageResource(R.drawable.ficha_blanca);
         else
             current.setImageResource(R.drawable.transparent);
     }
@@ -399,9 +376,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int fila = 0; fila < 8; fila++) {
             for (int columna = 0; columna < 8; columna++) {
                 if (tablero.getFichas()[fila][columna] == Fichas.NEGRA)
-                    imageButtons[fila][columna].setImageResource(R.drawable.black_chess);
+                    imageButtons[fila][columna].setImageResource(R.drawable.ficha_negra);
                 else if (tablero.getFichas()[fila][columna] == Fichas.BLANCA)
-                    imageButtons[fila][columna].setImageResource(R.drawable.white_chess);
+                    imageButtons[fila][columna].setImageResource(R.drawable.ficha_blanca);
                 else if (tablero.getFichas()[fila][columna] == Fichas.NINGUNA)
                     imageButtons[fila][columna].setImageResource(R.drawable.transparent);
             }
@@ -428,5 +405,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         imageButtons[fila][columna].setImageResource(R.drawable.white_chess_t);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_opciones, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.reiniciar:
+                tablero.iniciar();
+                dibujarTablero();
+                current.setImageResource(R.drawable.ficha_negra);
+
+                whiteCount.setText("WHITE : " + tablero.contador(Fichas.BLANCA));
+                blackCount.setText("BLACK : " + tablero.contador(Fichas.NEGRA));
+
+                // Reset hint parameter
+                hint_button = 0;
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
