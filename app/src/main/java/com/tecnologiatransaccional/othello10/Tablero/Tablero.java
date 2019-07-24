@@ -1,9 +1,12 @@
 package com.tecnologiatransaccional.othello10.Tablero;
 
+import android.util.Log;
+
 import com.tecnologiatransaccional.othello10.Fichas.Fichas;
 import com.tecnologiatransaccional.othello10.Jugador.Jugador;
 
 public class Tablero {
+    private static final String TAG = "Tablero";
     private Fichas[][] fichas = new Fichas[8][8];
     private Jugador mJugador1 = new Jugador(Fichas.NEGRA);
     private Jugador mJugador2 = new Jugador(Fichas.BLANCA);
@@ -43,5 +46,54 @@ public class Tablero {
 
     public void siguienteTurno() {
         this.jugadorActual = (this.jugadorActual == mJugador1) ? mJugador2 : mJugador1;
+    }
+
+    public boolean verificarMovimientos(int filaAcrual, int columnaActual) {
+        boolean esPosible = false;
+
+        if (fichas[filaAcrual][columnaActual] != Fichas.NINGUNA)
+            return esPosible;
+
+        //TODO: validar en las 8 posiciones posibles
+        for (int veryFila = -1; veryFila < 2; veryFila++) {
+            for (int veryColumna = -1; veryColumna < 2; veryColumna++) {
+                if (veryFila == 0 && veryColumna == 0)
+                    continue;
+
+                //verificamos si hay posiciones disponibles cerca de donde nos encontramos
+                int nuevaFila = filaAcrual + veryFila;
+                int nuevaColumna = columnaActual + veryColumna;
+
+                Log.d(TAG, "1--> : [" + nuevaFila + ", " + nuevaColumna + "]");
+                //Buscamos la nueva posicion dentro de nuestro tablero
+                if (nuevaFila >= 0 && nuevaFila <= 7 && nuevaColumna >= 0 && nuevaColumna <= 7) {
+                    //TODO: validamos que la nueva posicion sea del jugador opuesto al que este jugando actualmente
+                    Fichas mFichasNuevaPosicion = this.jugadorActual.getFichas() == Fichas.BLANCA ? Fichas.NEGRA : Fichas.BLANCA;
+                    if (fichas[nuevaFila][nuevaColumna] == mFichasNuevaPosicion) {
+                        for (int rango = 1; rango < 8; rango++) {
+                            int nFila = filaAcrual + rango * veryFila;
+                            int nColumna = columnaActual + rango * veryColumna;
+
+                            Log.d(TAG, "2-----> : [" + nFila + ", " + nColumna + "]");
+
+                            //omitimos las posiciones fuera del tablero
+                            if (nFila < 0 || nFila > 7 || nColumna < 0 || nColumna > 7)
+                                continue;
+
+                            //finalizaoms si encontramos alngun espacion vacio
+                            if (fichas[nFila][nColumna] == Fichas.NINGUNA)
+                                break;
+
+                            if (fichas[nFila][nColumna] == this.jugadorActual.getFichas()) {
+                                esPosible = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return esPosible;
     }
 }

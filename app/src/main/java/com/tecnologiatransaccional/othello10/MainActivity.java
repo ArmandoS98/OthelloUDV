@@ -347,6 +347,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void chessAction(int fila, int columna) {
-        Toast.makeText(this, "Fila: " + fila + ", Columna: " + columna, Toast.LENGTH_SHORT).show();
+        tablero.verificarMovimientos(fila, columna);
     }
 }
