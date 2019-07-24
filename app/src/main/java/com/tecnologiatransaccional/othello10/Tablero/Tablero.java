@@ -96,4 +96,66 @@ public class Tablero {
 
         return esPosible;
     }
+
+    public boolean volearFicha(int filaAcrual, int columnaActual) {
+        boolean esPosible = false;
+
+        //TODO: validar en las 8 posiciones posibles
+        for (int veryFila = -1; veryFila < 2; veryFila++) {
+            for (int veryColumna = -1; veryColumna < 2; veryColumna++) {
+                if (veryFila == 0 && veryColumna == 0)
+                    continue;
+
+                //verificamos si hay posiciones disponibles cerca de donde nos encontramos
+                int nuevaFila = filaAcrual + veryFila;
+                int nuevaColumna = columnaActual + veryColumna;
+
+                Log.d(TAG, "1--> : [" + nuevaFila + ", " + nuevaColumna + "]");
+                //Buscamos la nueva posicion dentro de nuestro tablero
+                if (nuevaFila >= 0 && nuevaFila <= 7 && nuevaColumna >= 0 && nuevaColumna <= 7) {
+                    //TODO: validamos que la nueva posicion sea del jugador opuesto al que este jugando actualmente
+                    Fichas mFichasNuevaPosicion = this.jugadorActual.getFichas() == Fichas.BLANCA ? Fichas.NEGRA : Fichas.BLANCA;
+                    if (fichas[nuevaFila][nuevaColumna] == mFichasNuevaPosicion) {
+                        for (int rango = 0; rango < 8; rango++) {
+                            int nFila = filaAcrual + rango * veryFila;
+                            int nColumna = columnaActual + rango * veryColumna;
+
+                            Log.d(TAG, "2-----> : [" + nFila + ", " + nColumna + "]");
+
+                            //omitimos las posiciones fuera del tablero
+                            if (nFila < 0 || nFila > 7 || nColumna < 0 || nColumna > 7)
+                                continue;
+
+                            //TODO: Verificamos si podemos voltear fichas en esta posicion
+                            if (fichas[nFila][nColumna] == this.jugadorActual.getFichas()) {
+                                boolean esPosibleVoltear = true;
+                                for (int distan = 1; distan < rango; distan++) {
+                                    int pruebaFila = filaAcrual + distan * veryFila;
+                                    int pruebaColumna = columnaActual + distan * veryColumna;
+
+                                    if (fichas[pruebaFila][pruebaColumna] != mFichasNuevaPosicion)
+                                        esPosibleVoltear = false;
+                                }
+
+                                //TODO: Volteamos las encontradas
+                                if (esPosibleVoltear) {
+                                    for (int voltearCan = 1; voltearCan < rango; voltearCan++) {
+                                        int filaFinal = filaAcrual + voltearCan * veryFila;
+                                        int columnaFinal = columnaActual + voltearCan * veryColumna;
+
+                                        if (fichas[filaFinal][columnaFinal] == mFichasNuevaPosicion)
+                                            fichas[filaFinal][columnaFinal] = this.jugadorActual.getFichas();
+                                    }
+                                }
+                                esPosible = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return esPosible;
+    }
 }
