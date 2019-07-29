@@ -145,7 +145,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/colorTableroLigth"
+                android:background="@drawable/ficha_color1"
                 android:padding="3dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ficha_negra" />
@@ -162,6 +162,7 @@
         android:layout_below="@+id/linLayout1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         android:background="@color/colorPrimaryDark" />
     <!--  <LinearLayout
           android:id="@+id/linLayout1"

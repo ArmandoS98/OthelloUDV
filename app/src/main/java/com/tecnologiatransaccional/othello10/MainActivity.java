@@ -361,10 +361,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void cambiar(ImageButton current) {
         if (tableroLogica.getJugadorActual().getFichas() == Fichas.NEGRA) {
             current.setImageResource(R.drawable.ficha_negra);
-            current.setBackgroundColor(getResources().getColor(R.color.colorTableroLigth));
+            current.setBackgroundResource(R.drawable.ficha_color2);
+//            current.setBackgroundColor(getResources().getColor(R.color.colorTableroLigth));
         } else if (tableroLogica.getJugadorActual().getFichas() == Fichas.BLANCA) {
             current.setImageResource(R.drawable.ficha_blanca);
-            current.setBackgroundColor(getResources().getColor(R.color.colorTableroDark));
+            current.setBackgroundResource(R.drawable.ficha_color1);
+//            current.setBackgroundColor(getResources().getColor(R.color.colorTableroDark));
         } else
             current.setImageResource(R.drawable.transparent);
     }
@@ -421,7 +423,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 whiteCount.setText(String.valueOf(tableroLogica.contador(Fichas.BLANCA)));
                 blackCount.setText(String.valueOf(tableroLogica.contador(Fichas.NEGRA)));
 
-                // Reset hint parameter
                 hint_button = 0;
                 break;
 
