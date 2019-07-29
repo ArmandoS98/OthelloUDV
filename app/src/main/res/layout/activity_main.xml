@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <!--  <TextView
@@ -14,74 +14,211 @@
           android:text="@string/app_name"
           android:textSize="30sp" />-->
 
+
+    <LinearLayout
+        android:id="@+id/linLayo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/tvt_marcador"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Marcador"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvt_turno"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Turno"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/linLayo"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorPrimaryDark" />
+
     <LinearLayout
         android:id="@+id/linLayout1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="5dp">
-
-        <TextView
-            android:id="@+id/blackNum"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Negro"
-            android:textSize="20sp" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/whiteNum"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tvtPrimerJugador"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:text="Negro   ->"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/blackNum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="0.5"
+                    android:text="0"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tvtSegundoJugador"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:text="Blanco  ->"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/whiteNum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="0.5"
+                    android:text="0"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="65dp"
-            android:text="Blanco"
-            android:textSize="20sp" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvt_turno_ficha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Ficha Color"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+
+            <ImageButton
+                android:id="@+id/current"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorTableroLigth"
+                android:padding="3dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ficha_negra" />
+        </LinearLayout>
 
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
         android:layout_below="@+id/linLayout1"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="15dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorPrimaryDark" />
+    <!--  <LinearLayout
+          android:id="@+id/linLayout1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
 
-        <!-- <Button
-             android:id="@+id/newGame"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="REINICIAR" />-->
+          android:layout_centerHorizontal="true"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="25dp"
+          android:layout_marginBottom="5dp">
 
-        <ImageButton
-            android:id="@+id/current"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/ic_launcher_background"
-            android:scaleType="fitXY"
-            android:padding="2dp"
-            android:src="@drawable/ficha_negra" />
+          <TextView
+              android:id="@+id/blackNum"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Negro"
+              android:textSize="20sp" />
 
-        <!--   <Button
-               android:id="@+id/hint"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="35dp"
-               android:text="MOVIMIE" />-->
+          <TextView
+              android:id="@+id/whiteNum"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="65dp"
+              android:text="Blanco"
+              android:textSize="20sp" />
 
-    </LinearLayout>
+
+      </LinearLayout>-->
+
+    <!--   <LinearLayout
+           android:id="@+id/linLayout2"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/view1"
+           android:layout_centerHorizontal="true"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginBottom="15dp">
+
+           <ImageButton
+               android:id="@+id/current"
+               android:layout_width="35dp"
+               android:layout_height="35dp"
+               android:background="@drawable/ic_launcher_background"
+               android:padding="2dp"
+               android:scaleType="fitXY"
+               android:src="@drawable/ficha_negra" />
+       </LinearLayout>-->
 
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linLayout2"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/view1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:background="@color/colorTableroBackground"
+        android:elevation="2dp"
         android:padding="5dp">
 
         <RelativeLayout

@@ -1,18 +1,20 @@
-package com.tecnologiatransaccional.othello10.Tablero;
+package com.tecnologiatransaccional.othello10.TableroLogica;
 
 import android.util.Log;
 
 import com.tecnologiatransaccional.othello10.Fichas.Fichas;
 import com.tecnologiatransaccional.othello10.Jugador.Jugador;
 
-public class Tablero {
-    private static final String TAG = "Tablero";
+import java.util.Random;
+
+public class TableroLogica {
+    private static final String TAG = "TableroLogica";
     private Fichas[][] fichas = new Fichas[8][8];
     private Jugador mJugador1 = new Jugador(Fichas.NEGRA);
     private Jugador mJugador2 = new Jugador(Fichas.BLANCA);
     private Jugador jugadorActual;
 
-    public Tablero() {
+    public TableroLogica() {
         iniciar();
     }
 
@@ -33,6 +35,11 @@ public class Tablero {
         siguienteTurno();
         posicionFicha(4, 4);
         siguienteTurno();
+
+
+        //La opcion que decida que inicie cualquiera de los 2 jugadores
+        int randomNumber = new Random().nextInt(2);
+        Log.d(TAG, "iniciar: " + randomNumber);
     }
 
     public void posicionFicha(int fila, int columna) {
@@ -97,7 +104,7 @@ public class Tablero {
         return esPosible;
     }
 
-    public boolean volearFicha(int filaAcrual, int columnaActual) {
+    public void volearFicha(int filaAcrual, int columnaActual) {
         boolean esPosible = false;
 
         //TODO: validar en las 8 posiciones posibles
@@ -156,7 +163,6 @@ public class Tablero {
             }
         }
 
-        return esPosible;
     }
 
     public int verificarDisponibles() {

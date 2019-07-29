@@ -2,4 +2,5 @@
 <resources>
     <dimen name="anchura">40dp</dimen>
     <dimen name="altura">40dp</dimen>
+    <dimen name="padding">3dp</dimen>
 </resources>

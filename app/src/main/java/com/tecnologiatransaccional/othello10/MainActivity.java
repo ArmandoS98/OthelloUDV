@@ -1,23 +1,32 @@
 package com.tecnologiatransaccional.othello10;
 
+import android.content.Context;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tecnologiatransaccional.othello10.Fichas.Fichas;
-import com.tecnologiatransaccional.othello10.Tablero.Tablero;
+import com.tecnologiatransaccional.othello10.TableroLogica.TableroLogica;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
+    //Incializadion del trablero
+    private TableroLogica tableroLogica = new TableroLogica();
+
+    private Vibrator vibrator;
+
+    private ImageButton current;
+    private TextView whiteCount;
+    private TextView blackCount;
+
+    private ImageButton[][] imageButtons = new ImageButton[8][8];
+    private int hint_button = 0; // Default turn-off
     private int[][] idviews = {
             {R.id.board11, R.id.board12, R.id.board13, R.id.board14, R.id.board15, R.id.board16, R.id.board17, R.id.board18},
             {R.id.board21, R.id.board22, R.id.board23, R.id.board24, R.id.board25, R.id.board26, R.id.board27, R.id.board28},
@@ -28,30 +37,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             {R.id.board71, R.id.board72, R.id.board73, R.id.board74, R.id.board75, R.id.board76, R.id.board77, R.id.board78},
             {R.id.board81, R.id.board82, R.id.board83, R.id.board84, R.id.board85, R.id.board86, R.id.board87, R.id.board88}};
 
-    private ImageButton[][] imageButtons = new ImageButton[8][8];
-
-    private int hint_button = 0; // Default turn-off
-
-    private ImageButton current;
-    private TextView whiteCount;
-    private TextView blackCount;
-
-    //Incializadion del trablero
-    private Tablero tablero = new Tablero();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+
         whiteCount = findViewById(R.id.whiteNum);
         blackCount = findViewById(R.id.blackNum);
-
-      /*  Button newGame = findViewById(R.id.newGame);
-        newGame.setOnClickListener(this);
-
-        Button hint = findViewById(R.id.hint);
-        hint.setOnClickListener(this);*/
 
         current = findViewById(R.id.current);
 
@@ -326,27 +322,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void chessAction(int fila, int columna) {
-        if (tablero.verificarDisponibles() != 0 && hayMovimientos()) {
-            if (tablero.verificarMovimientos(fila, columna)) {
-                tablero.volearFicha(fila, columna);
-                tablero.posicionFicha(fila, columna);
+        if (tableroLogica.verificarDisponibles() != 0 && hayMovimientos()) {
+            if (tableroLogica.verificarMovimientos(fila, columna)) {
+                tableroLogica.volearFicha(fila, columna);
+                tableroLogica.posicionFicha(fila, columna);
                 dibujarTablero();
 
-                whiteCount.setText("BLANCO : " + tablero.contador(Fichas.BLANCA));
-                blackCount.setText("NEGRO  : " + tablero.contador(Fichas.NEGRA));
+                whiteCount.setText(String.valueOf(tableroLogica.contador(Fichas.BLANCA)));
+                blackCount.setText(String.valueOf(tableroLogica.contador(Fichas.NEGRA)));
 
-                if (tablero.verificarDisponibles() != 0) {
-                    tablero.siguienteTurno();
+                if (tableroLogica.verificarDisponibles() != 0) {
+                    tableroLogica.siguienteTurno();
                     cambiar(current);
+                    vibrator.vibrate(100);
 
                     if (!hayMovimientos())
                         mostrarGanador();
                 }
 
-                if (tablero.verificarDisponibles() == 0)
+                if (tableroLogica.verificarDisponibles() == 0)
                     mostrarGanador();
-
-
             }
         } else {
             Toast.makeText(MainActivity.this, "Nuevo Juego", Toast.LENGTH_SHORT).show();
@@ -354,32 +349,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void mostrarGanador() {
-        if (tablero.contador(Fichas.NEGRA) > tablero.contador(Fichas.BLANCA)) {
+        if (tableroLogica.contador(Fichas.NEGRA) > tableroLogica.contador(Fichas.BLANCA)) {
             Toast.makeText(this, "FICHAS NEGRAS GANA", Toast.LENGTH_LONG).show();
-        } else if (tablero.contador(Fichas.NEGRA) < tablero.contador(Fichas.BLANCA)) {
+        } else if (tableroLogica.contador(Fichas.NEGRA) < tableroLogica.contador(Fichas.BLANCA)) {
             Toast.makeText(this, "FICHAS BLANCAS GANA", Toast.LENGTH_LONG).show();
-        } else if (tablero.contador(Fichas.NEGRA) == tablero.contador(Fichas.BLANCA)) {
+        } else if (tableroLogica.contador(Fichas.NEGRA) == tableroLogica.contador(Fichas.BLANCA)) {
             Toast.makeText(this, "EMPATE", Toast.LENGTH_LONG).show();
         }
     }
 
     private void cambiar(ImageButton current) {
-        if (tablero.getJugadorActual().getFichas() == Fichas.NEGRA)
+        if (tableroLogica.getJugadorActual().getFichas() == Fichas.NEGRA) {
             current.setImageResource(R.drawable.ficha_negra);
-        else if (tablero.getJugadorActual().getFichas() == Fichas.BLANCA)
+            current.setBackgroundColor(getResources().getColor(R.color.colorTableroLigth));
+        } else if (tableroLogica.getJugadorActual().getFichas() == Fichas.BLANCA) {
             current.setImageResource(R.drawable.ficha_blanca);
-        else
+            current.setBackgroundColor(getResources().getColor(R.color.colorTableroDark));
+        } else
             current.setImageResource(R.drawable.transparent);
     }
 
     private void dibujarTablero() {
         for (int fila = 0; fila < 8; fila++) {
             for (int columna = 0; columna < 8; columna++) {
-                if (tablero.getFichas()[fila][columna] == Fichas.NEGRA)
+                if (tableroLogica.getFichas()[fila][columna] == Fichas.NEGRA)
                     imageButtons[fila][columna].setImageResource(R.drawable.ficha_negra);
-                else if (tablero.getFichas()[fila][columna] == Fichas.BLANCA)
+                else if (tableroLogica.getFichas()[fila][columna] == Fichas.BLANCA)
                     imageButtons[fila][columna].setImageResource(R.drawable.ficha_blanca);
-                else if (tablero.getFichas()[fila][columna] == Fichas.NINGUNA)
+                else if (tableroLogica.getFichas()[fila][columna] == Fichas.NINGUNA)
                     imageButtons[fila][columna].setImageResource(R.drawable.transparent);
             }
         }
@@ -388,24 +385,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean hayMovimientos() {
         for (int fila = 0; fila < 8; fila++) {
             for (int columna = 0; columna < 8; columna++) {
-                if (tablero.verificarMovimientos(fila, columna))
+                if (tableroLogica.verificarMovimientos(fila, columna))
                     return true;
             }
         }
         return false;
     }
 
-    private void verPosiblesMovimientos() {
+    /*private void verPosiblesMovimientos() {
         for (int fila = 0; fila < 8; fila++) {
             for (int columna = 0; columna < 8; columna++) {
-                if (tablero.getFichas()[fila][columna] == Fichas.NINGUNA && tablero.verificarMovimientos(fila, columna))
-                    if (tablero.getJugadorActual().getFichas() == Fichas.NEGRA)
+                if (tableroLogica.getFichas()[fila][columna] == Fichas.NINGUNA && tableroLogica.verificarMovimientos(fila, columna))
+                    if (tableroLogica.getJugadorActual().getFichas() == Fichas.NEGRA)
                         imageButtons[fila][columna].setImageResource(R.drawable.black_chess_t);
-                    else if (tablero.getJugadorActual().getFichas() == Fichas.BLANCA)
+                    else if (tableroLogica.getJugadorActual().getFichas() == Fichas.BLANCA)
                         imageButtons[fila][columna].setImageResource(R.drawable.white_chess_t);
             }
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -417,15 +414,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.reiniciar:
-                tablero.iniciar();
+                tableroLogica.iniciar();
                 dibujarTablero();
                 current.setImageResource(R.drawable.ficha_negra);
 
-                whiteCount.setText("WHITE : " + tablero.contador(Fichas.BLANCA));
-                blackCount.setText("BLACK : " + tablero.contador(Fichas.NEGRA));
+                whiteCount.setText(String.valueOf(tableroLogica.contador(Fichas.BLANCA)));
+                blackCount.setText(String.valueOf(tableroLogica.contador(Fichas.NEGRA)));
 
                 // Reset hint parameter
                 hint_button = 0;
+                break;
+
+            case 2:
                 break;
         }
         return super.onOptionsItemSelected(item);
