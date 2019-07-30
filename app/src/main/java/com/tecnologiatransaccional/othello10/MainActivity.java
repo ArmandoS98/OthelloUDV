@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,14 +20,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Incializadion del trablero
     private TableroLogica tableroLogica = new TableroLogica();
 
-    private Vibrator vibrator;
+    private Vibrator mVibrator;
 
-    private ImageButton current;
-    private TextView whiteCount;
-    private TextView blackCount;
+    private ImageButton jugadorActual;
+    private TextView mTextViewContadorFichaBlanca;
+    private TextView mTextViewContadorFichaNegra;
+    private TextView mTextViewFichaBlanca;
+    private TextView mTextViewFichaNegra;
+
 
     private ImageButton[][] imageButtons = new ImageButton[8][8];
-    private int hint_button = 0; // Default turn-off
     private int[][] idviews = {
             {R.id.board11, R.id.board12, R.id.board13, R.id.board14, R.id.board15, R.id.board16, R.id.board17, R.id.board18},
             {R.id.board21, R.id.board22, R.id.board23, R.id.board24, R.id.board25, R.id.board26, R.id.board27, R.id.board28},
@@ -43,14 +46,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        inicializarComponentes();
+    }
 
+    private void inicializarComponentes() {
+        mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        whiteCount = findViewById(R.id.whiteNum);
-        blackCount = findViewById(R.id.blackNum);
-
-        current = findViewById(R.id.current);
-
+        mTextViewContadorFichaBlanca = findViewById(R.id.whiteNum);
+        mTextViewContadorFichaNegra = findViewById(R.id.blackNum);
+        mTextViewFichaNegra = findViewById(R.id.tvtPrimerJugador);
+        mTextViewFichaBlanca = findViewById(R.id.tvtSegundoJugador);
+        jugadorActual = findViewById(R.id.current);
+        cambiar(jugadorActual);
         /**
          * TODO: Realizo la inicializacion de los componentes, y creo junto con ello el evento Onclick
          * el cual es el responsable de cada vez que precionamos en la parte visual.
@@ -61,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 imageButtons[i][j].setOnClickListener(this);
             }
         }
-
     }
 
     @Override
@@ -328,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Este metodo es el encargado de recibir la posicion de la cual se seleccion en la parte grafica,
      * recibe como parametro la fila y la columna de la view actual.
+     *
      * @param fila
      * @param columna
      */
@@ -337,14 +344,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tableroLogica.volearFicha(fila, columna);
                 tableroLogica.posicionFicha(fila, columna);
                 dibujarTablero();
-
-                whiteCount.setText(String.valueOf(tableroLogica.contador(Fichas.BLANCA)));
-                blackCount.setText(String.valueOf(tableroLogica.contador(Fichas.NEGRA)));
+                cambiar(jugadorActual);
+                mTextViewContadorFichaBlanca.setText(String.valueOf(tableroLogica.contador(Fichas.BLANCA)));
+                mTextViewContadorFichaNegra.setText(String.valueOf(tableroLogica.contador(Fichas.NEGRA)));
 
                 if (tableroLogica.verificarDisponibles() != 0) {
                     tableroLogica.siguienteTurno();
-                    cambiar(current);
-                    vibrator.vibrate(100);
+                    cambiar(jugadorActual);
+                    mVibrator.vibrate(100);
 
                     if (!hayMovimientos())
                         mostrarGanador();
@@ -364,17 +371,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void mostrarGanador() {
         if (tableroLogica.contador(Fichas.NEGRA) > tableroLogica.contador(Fichas.BLANCA)) {
-            Toast.makeText(this, "FICHAS NEGRAS GANA", Toast.LENGTH_LONG).show();
+            mTextViewFichaNegra.setTextColor(getResources().getColor(R.color.colorGanador));
+            mTextViewContadorFichaNegra.setTextColor(getResources().getColor(R.color.colorGanador));
         } else if (tableroLogica.contador(Fichas.NEGRA) < tableroLogica.contador(Fichas.BLANCA)) {
-            Toast.makeText(this, "FICHAS BLANCAS GANA", Toast.LENGTH_LONG).show();
+            mTextViewFichaBlanca.setTextColor(getResources().getColor(R.color.colorGanador));
+            mTextViewContadorFichaBlanca.setTextColor(getResources().getColor(R.color.colorGanador));
         } else if (tableroLogica.contador(Fichas.NEGRA) == tableroLogica.contador(Fichas.BLANCA)) {
-            Toast.makeText(this, "EMPATE", Toast.LENGTH_LONG).show();
+            mTextViewFichaNegra.setTextColor(getResources().getColor(R.color.colorEmpate));
+            mTextViewFichaBlanca.setTextColor(getResources().getColor(R.color.colorEmpate));
+            mTextViewContadorFichaNegra.setTextColor(getResources().getColor(R.color.colorEmpate));
+            mTextViewContadorFichaBlanca.setTextColor(getResources().getColor(R.color.colorEmpate));
         }
     }
 
     /**
      * En esta seccion del codigo tenemos la logica la cual cambia la ficha del jugador en el recuad-
      * ro que dice "Ficha Turno" en la parte gradica es solo una validacion.
+     *
      * @param current
      */
     private void cambiar(ImageButton current) {
@@ -387,6 +400,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else
             current.setImageResource(R.drawable.transparent);
     }
+
 
     /**
      * la funcion encargada de dibujarnos el tablero despues de cada movimiento que haga el usuario
@@ -406,6 +420,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Funcion que me permitive visualizar si hay mas movimiento que el usuario puede realizar.
+     *
      * @return
      */
     private boolean hayMovimientos() {
@@ -441,13 +456,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (item.getItemId()) {
             case R.id.reiniciar:
                 tableroLogica.iniciar();
+                cambiar(jugadorActual);
                 dibujarTablero();
-                current.setImageResource(R.drawable.ficha_negra);
 
-                whiteCount.setText(String.valueOf(tableroLogica.contador(Fichas.BLANCA)));
-                blackCount.setText(String.valueOf(tableroLogica.contador(Fichas.NEGRA)));
+                mTextViewContadorFichaBlanca.setText(String.valueOf(tableroLogica.contador(Fichas.BLANCA)));
+                mTextViewContadorFichaNegra.setText(String.valueOf(tableroLogica.contador(Fichas.NEGRA)));
 
-                hint_button = 0;
                 break;
 
             case 2:

@@ -38,8 +38,9 @@ public class TableroLogica {
 
 
         //La opcion que decida que inicie cualquiera de los 2 jugadores
-        int randomNumber = new Random().nextInt(2);
-        Log.d(TAG, "iniciar: " + randomNumber);
+
+        if (((int) (Math.random() * 2) + 1) == 1)
+            siguienteTurno();
     }
 
     public void posicionFicha(int fila, int columna) {
