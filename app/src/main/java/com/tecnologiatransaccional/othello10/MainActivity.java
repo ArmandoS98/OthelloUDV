@@ -1,6 +1,9 @@
 package com.tecnologiatransaccional.othello10;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +18,8 @@ import android.widget.Toast;
 import com.tecnologiatransaccional.othello10.Fichas.Fichas;
 import com.tecnologiatransaccional.othello10.TableroLogica.TableroLogica;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
     //Incializadion del trablero
@@ -27,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView mTextViewContadorFichaNegra;
     private TextView mTextViewFichaBlanca;
     private TextView mTextViewFichaNegra;
-
+    private Dialog shwDialog;
 
     private ImageButton[][] imageButtons = new ImageButton[8][8];
     private int[][] idviews = {
@@ -51,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void inicializarComponentes() {
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        shwDialog = new Dialog(this);
 
         mTextViewContadorFichaBlanca = findViewById(R.id.whiteNum);
         mTextViewContadorFichaNegra = findViewById(R.id.blackNum);
@@ -373,9 +379,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (tableroLogica.contador(Fichas.NEGRA) > tableroLogica.contador(Fichas.BLANCA)) {
             mTextViewFichaNegra.setTextColor(getResources().getColor(R.color.colorGanador));
             mTextViewContadorFichaNegra.setTextColor(getResources().getColor(R.color.colorGanador));
+            ganador("Ficha Negra");
         } else if (tableroLogica.contador(Fichas.NEGRA) < tableroLogica.contador(Fichas.BLANCA)) {
             mTextViewFichaBlanca.setTextColor(getResources().getColor(R.color.colorGanador));
             mTextViewContadorFichaBlanca.setTextColor(getResources().getColor(R.color.colorGanador));
+            ganador("Ficha Blanca");
         } else if (tableroLogica.contador(Fichas.NEGRA) == tableroLogica.contador(Fichas.BLANCA)) {
             mTextViewFichaNegra.setTextColor(getResources().getColor(R.color.colorEmpate));
             mTextViewFichaBlanca.setTextColor(getResources().getColor(R.color.colorEmpate));
@@ -444,6 +452,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }*/
+
+    private void ganador(String text) {
+        shwDialog.setContentView(R.layout.dialgo_ganador);
+        TextView mTextView = shwDialog.findViewById(R.id.txt_ganador);
+        mTextView.setText(text);
+        Objects.requireNonNull(shwDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        shwDialog.show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

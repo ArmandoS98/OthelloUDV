@@ -11,6 +11,9 @@
 
     <color name="colorGanador">#FFC107</color>
     <color name="colorEmpate">#FF9800</color>
+
+    <color name="colorFondoDialogGanador">#ABFFC0</color>
+
 <!--
     <color name="colorTableroDark">#6A040836</color>
     <color name="colorTableroLigth">#A38023</color>-->
