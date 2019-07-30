@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         current = findViewById(R.id.current);
 
+        /**
+         * TODO: Realizo la inicializacion de los componentes, y creo junto con ello el evento Onclick
+         * el cual es el responsable de cada vez que precionamos en la parte visual.
+         */
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 imageButtons[i][j] = findViewById(idviews[i][j]);
@@ -64,264 +68,270 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.board11:
-                chessAction(0, 0);
+                verificarPosicionB(0, 0);
                 break;
 
             case R.id.board12:
-                chessAction(0, 1);
+                verificarPosicionB(0, 1);
                 break;
 
             case R.id.board13:
-                chessAction(0, 2);
+                verificarPosicionB(0, 2);
                 break;
 
             case R.id.board14:
-                chessAction(0, 3);
+                verificarPosicionB(0, 3);
                 break;
 
             case R.id.board15:
-                chessAction(0, 4);
+                verificarPosicionB(0, 4);
                 break;
 
             case R.id.board16:
-                chessAction(0, 5);
+                verificarPosicionB(0, 5);
                 break;
 
             case R.id.board17:
-                chessAction(0, 6);
+                verificarPosicionB(0, 6);
                 break;
 
             case R.id.board18:
-                chessAction(0, 7);
+                verificarPosicionB(0, 7);
                 break;
 
             case R.id.board21:
-                chessAction(1, 0);
+                verificarPosicionB(1, 0);
                 break;
 
             case R.id.board22:
-                chessAction(1, 1);
+                verificarPosicionB(1, 1);
                 break;
 
             case R.id.board23:
-                chessAction(1, 2);
+                verificarPosicionB(1, 2);
                 break;
 
             case R.id.board24:
-                chessAction(1, 3);
+                verificarPosicionB(1, 3);
                 break;
 
             case R.id.board25:
-                chessAction(1, 4);
+                verificarPosicionB(1, 4);
                 break;
 
             case R.id.board26:
-                chessAction(1, 5);
+                verificarPosicionB(1, 5);
                 break;
 
             case R.id.board27:
-                chessAction(1, 6);
+                verificarPosicionB(1, 6);
                 break;
 
             case R.id.board28:
-                chessAction(1, 7);
+                verificarPosicionB(1, 7);
                 break;
 
             case R.id.board31:
-                chessAction(2, 0);
+                verificarPosicionB(2, 0);
                 break;
 
             case R.id.board32:
-                chessAction(2, 1);
+                verificarPosicionB(2, 1);
                 break;
 
             case R.id.board33:
-                chessAction(2, 2);
+                verificarPosicionB(2, 2);
                 break;
 
             case R.id.board34:
-                chessAction(2, 3);
+                verificarPosicionB(2, 3);
                 break;
 
             case R.id.board35:
-                chessAction(2, 4);
+                verificarPosicionB(2, 4);
                 break;
 
             case R.id.board36:
-                chessAction(2, 5);
+                verificarPosicionB(2, 5);
                 break;
 
             case R.id.board37:
-                chessAction(2, 6);
+                verificarPosicionB(2, 6);
                 break;
 
             case R.id.board38:
-                chessAction(2, 7);
+                verificarPosicionB(2, 7);
                 break;
 
             case R.id.board41:
-                chessAction(3, 0);
+                verificarPosicionB(3, 0);
                 break;
 
             case R.id.board42:
-                chessAction(3, 1);
+                verificarPosicionB(3, 1);
                 break;
 
             case R.id.board43:
-                chessAction(3, 2);
+                verificarPosicionB(3, 2);
                 break;
 
             case R.id.board44:
-                chessAction(3, 3);
+                verificarPosicionB(3, 3);
                 break;
 
             case R.id.board45:
-                chessAction(3, 4);
+                verificarPosicionB(3, 4);
                 break;
 
             case R.id.board46:
-                chessAction(3, 5);
+                verificarPosicionB(3, 5);
                 break;
 
             case R.id.board47:
-                chessAction(3, 6);
+                verificarPosicionB(3, 6);
                 break;
 
             case R.id.board48:
-                chessAction(3, 7);
+                verificarPosicionB(3, 7);
                 break;
 
             case R.id.board51:
-                chessAction(4, 0);
+                verificarPosicionB(4, 0);
                 break;
 
             case R.id.board52:
-                chessAction(4, 1);
+                verificarPosicionB(4, 1);
                 break;
 
             case R.id.board53:
-                chessAction(4, 2);
+                verificarPosicionB(4, 2);
                 break;
 
             case R.id.board54:
-                chessAction(4, 3);
+                verificarPosicionB(4, 3);
                 break;
 
             case R.id.board55:
-                chessAction(4, 4);
+                verificarPosicionB(4, 4);
                 break;
 
             case R.id.board56:
-                chessAction(4, 5);
+                verificarPosicionB(4, 5);
                 break;
 
             case R.id.board57:
-                chessAction(4, 6);
+                verificarPosicionB(4, 6);
                 break;
 
             case R.id.board58:
-                chessAction(4, 7);
+                verificarPosicionB(4, 7);
                 break;
 
             case R.id.board61:
-                chessAction(5, 0);
+                verificarPosicionB(5, 0);
                 break;
 
             case R.id.board62:
-                chessAction(5, 1);
+                verificarPosicionB(5, 1);
                 break;
 
             case R.id.board63:
-                chessAction(5, 2);
+                verificarPosicionB(5, 2);
                 break;
 
             case R.id.board64:
-                chessAction(5, 3);
+                verificarPosicionB(5, 3);
                 break;
 
             case R.id.board65:
-                chessAction(5, 4);
+                verificarPosicionB(5, 4);
                 break;
 
             case R.id.board66:
-                chessAction(5, 5);
+                verificarPosicionB(5, 5);
                 break;
 
             case R.id.board67:
-                chessAction(5, 6);
+                verificarPosicionB(5, 6);
                 break;
 
             case R.id.board68:
-                chessAction(5, 7);
+                verificarPosicionB(5, 7);
                 break;
 
             case R.id.board71:
-                chessAction(6, 0);
+                verificarPosicionB(6, 0);
                 break;
 
             case R.id.board72:
-                chessAction(6, 1);
+                verificarPosicionB(6, 1);
                 break;
 
             case R.id.board73:
-                chessAction(6, 2);
+                verificarPosicionB(6, 2);
                 break;
 
             case R.id.board74:
-                chessAction(6, 3);
+                verificarPosicionB(6, 3);
                 break;
 
             case R.id.board75:
-                chessAction(6, 4);
+                verificarPosicionB(6, 4);
                 break;
 
             case R.id.board76:
-                chessAction(6, 5);
+                verificarPosicionB(6, 5);
                 break;
 
             case R.id.board77:
-                chessAction(6, 6);
+                verificarPosicionB(6, 6);
                 break;
 
             case R.id.board78:
-                chessAction(6, 7);
+                verificarPosicionB(6, 7);
                 break;
 
             case R.id.board81:
-                chessAction(7, 0);
+                verificarPosicionB(7, 0);
                 break;
 
             case R.id.board82:
-                chessAction(7, 1);
+                verificarPosicionB(7, 1);
                 break;
 
             case R.id.board83:
-                chessAction(7, 2);
+                verificarPosicionB(7, 2);
                 break;
 
             case R.id.board84:
-                chessAction(7, 3);
+                verificarPosicionB(7, 3);
                 break;
 
             case R.id.board85:
-                chessAction(7, 4);
+                verificarPosicionB(7, 4);
                 break;
 
             case R.id.board86:
-                chessAction(7, 5);
+                verificarPosicionB(7, 5);
                 break;
 
             case R.id.board87:
-                chessAction(7, 6);
+                verificarPosicionB(7, 6);
                 break;
 
             case R.id.board88:
-                chessAction(7, 7);
+                verificarPosicionB(7, 7);
                 break;
         }
     }
 
-    private void chessAction(int fila, int columna) {
+    /**
+     * Este metodo es el encargado de recibir la posicion de la cual se seleccion en la parte grafica,
+     * recibe como parametro la fila y la columna de la view actual.
+     * @param fila
+     * @param columna
+     */
+    private void verificarPosicionB(int fila, int columna) {
         if (tableroLogica.verificarDisponibles() != 0 && hayMovimientos()) {
             if (tableroLogica.verificarMovimientos(fila, columna)) {
                 tableroLogica.volearFicha(fila, columna);
@@ -348,6 +358,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * En esta parte colocamos la logica para poder identificar al ganador y que nos retorne un
+     * mensaje de salida el cual varia dependiendo cual usuario es el ganador.
+     */
     private void mostrarGanador() {
         if (tableroLogica.contador(Fichas.NEGRA) > tableroLogica.contador(Fichas.BLANCA)) {
             Toast.makeText(this, "FICHAS NEGRAS GANA", Toast.LENGTH_LONG).show();
@@ -358,6 +372,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * En esta seccion del codigo tenemos la logica la cual cambia la ficha del jugador en el recuad-
+     * ro que dice "Ficha Turno" en la parte gradica es solo una validacion.
+     * @param current
+     */
     private void cambiar(ImageButton current) {
         if (tableroLogica.getJugadorActual().getFichas() == Fichas.NEGRA) {
             current.setImageResource(R.drawable.ficha_negra);
@@ -369,6 +388,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             current.setImageResource(R.drawable.transparent);
     }
 
+    /**
+     * la funcion encargada de dibujarnos el tablero despues de cada movimiento que haga el usuario
+     */
     private void dibujarTablero() {
         for (int fila = 0; fila < 8; fila++) {
             for (int columna = 0; columna < 8; columna++) {
@@ -382,6 +404,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Funcion que me permitive visualizar si hay mas movimiento que el usuario puede realizar.
+     * @return
+     */
     private boolean hayMovimientos() {
         for (int fila = 0; fila < 8; fila++) {
             for (int columna = 0; columna < 8; columna++) {
