@@ -7,6 +7,13 @@ import com.tecnologiatransaccional.othello10.Jugador.Jugador;
 
 import java.util.Random;
 
+/******************************************************************************
+ Proyecto Othello
+ Desarrollado por: Alvaro Sosa y Armando Santos
+ 06.08.2019-14:18
+ Version 1.0
+ *******************************************************************************/
+
 public class TableroLogica {
     private static final String TAG = "TableroLogica";
     private Fichas[][] fichas = new Fichas[8][8];

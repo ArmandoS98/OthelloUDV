@@ -20,6 +20,13 @@ import com.tecnologiatransaccional.othello10.TableroLogica.TableroLogica;
 
 import java.util.Objects;
 
+/******************************************************************************
+ Proyecto Othello
+ Desarrollado por: Alvaro Sosa y Armando Santos
+ 06.08.2019-14:18
+ Version 1.0
+ *******************************************************************************/
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
     //Incializadion del trablero
