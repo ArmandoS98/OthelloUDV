@@ -38,7 +38,6 @@ public class TableroLogica {
 
 
         //La opcion que decida que inicie cualquiera de los 2 jugadores
-
         if (((int) (Math.random() * 2) + 1) == 1)
             siguienteTurno();
     }
