@@ -448,17 +448,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-    /*private void verPosiblesMovimientos() {
-        for (int fila = 0; fila < 8; fila++) {
-            for (int columna = 0; columna < 8; columna++) {
-                if (tableroLogica.getFichas()[fila][columna] == Fichas.NINGUNA && tableroLogica.verificarMovimientos(fila, columna))
-                    if (tableroLogica.getJugadorActual().getFichas() == Fichas.NEGRA)
-                        imageButtons[fila][columna].setImageResource(R.drawable.black_chess_t);
-                    else if (tableroLogica.getJugadorActual().getFichas() == Fichas.BLANCA)
-                        imageButtons[fila][columna].setImageResource(R.drawable.white_chess_t);
-            }
-        }
-    }*/
 
     private void ganador(String text) {
         shwDialog.setContentView(R.layout.dialgo_ganador);
